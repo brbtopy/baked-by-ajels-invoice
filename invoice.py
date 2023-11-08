@@ -56,8 +56,8 @@ user_phone = str(input(f"What is the contact address for {username}? "))
 
 invoice_no = "#0" + str(read_counter(invoice_no_file))
 
-# logo = os.path.join(os.getcwd(), "pictures\\logo.jpg")
-# pdf.drawImage(logo, 265, 660, width=97, height=100)
+logo = os.path.join(os.getcwd(), "pictures\\logo.jpg")
+pdf.drawImage(logo, 60, 680, width=70, height=73)
 
 pdf.setFont("Courier-Bold", 12)
 pdf.drawString(60, 630, "ISSUED TO:")
@@ -137,7 +137,7 @@ while product.lower() != "end":
 
     if product.lower() == "end":
         break
-    quantity = int(input(f"What is the quantity of {product_dict} that {username} is buying next? "))
+    quantity = int(input(f"What is the quantity of {product_dict} that {username} is buying? "))
 
 total_dsp = ("%.2f" % total)
 
@@ -194,6 +194,7 @@ if count > 3:
     pdf.drawImage(thanks, 440, 50, width=130, height=130)
 
 pdf.save()
+
 #################################################################################
 #adding watermark to receipt
 instructions = {
