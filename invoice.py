@@ -86,20 +86,59 @@ pdf.setFont("Courier-Bold", 13)
 pdf.drawString(63, 541, "DESCRIPTION")
 pdf.drawString(240, 541, "UNIT PRICE")
 pdf.drawString(390, 541, "QTY")
-pdf.drawString(513, 541, "TOTAL")
+pdf.drawString(510, 541, "TOTAL")
 
 #append purchase list to little invoice table
-product_prices = {"Pack of Bread":300, "Pack of Spring Rolls":200, "Sachette of Sugar":100, "Bottle of Milk":250}
+product_prices = {"Chicken Pieces":10, "Gizzard Khebab":7, "Chicken Khebab":10, "Meat Pie":7, "Rock Buns":5, "Mini Pizza":8,
+                  "Quiche Slice":10, "Mini Quiche":8, "Fish Pie":10, "Yam Balls":2.5, "Spring Rolls":2.5, "Samosa (3pcs)":10,
+                  "Plain Cake":200, "Baked Flour Chips":150, "Straw Flour Chips":180, "Atsomo":150, "Plantain Chips":150,
+                  "Coated Nuts":150, "Piped Cookies":150, "Oat Cookies":180, "Ring Donut":180, "Drop Donut":180}
 
 product = input(f"What is {username} buying? ")
-if product.lower() == "bread":
-    product_dsp = product_dict = "Pack of Bread"
+if product.lower() == "baked flour chips":
+    product_dsp = product_dict = "Baked Flour Chips"
+if product.lower() == "straw flour chips":
+    product_dsp = product_dict = "Straw Flour Chips"
+if product.lower() == "atsomo":
+    product_dsp = product_dict = "Atsomo"
+if product.lower() == "plantain chips":
+    product_dsp = product_dict = "Plantain Chips"
+if product.lower() == "coated nuts":
+    product_dsp = product_dict = "Coated Nuts"
+if product.lower() == "piped cookies":
+    product_dsp = product_dict = "Piped Cookies"
+if product.lower() == "oat cookies":
+    product_dsp = product_dict = "Oat Cookies"
+if product.lower() == "ring donut":
+    product_dsp = product_dict = "Ring Donut"
+if product.lower() == "drop donut":
+    product_dsp = product_dict = "Drop Donut"
+if product.lower() == "chicken pieces":
+    product_dsp = product_dict = "Chicken Pieces"
+if product.lower() == "gizzard khebab":
+    product_dsp = product_dict = "Gizzard Khebab"
+if product.lower() == "chicken khebab":
+    product_dsp = product_dict = "Chicken Khebab"
+if product.lower() == "meat pie":
+    product_dsp = product_dict = "Meat Pie"
+if product.lower() == "rock buns":
+    product_dsp = product_dict = "Rock Buns"
+if product.lower() == "mini pizza":
+    product_dsp = product_dict = "Mini Pizza"
+if product.lower() == "quiche slice":
+    product_dsp = product_dict = "Quiche Slice"
+if product.lower() == "mini quiche":
+    product_dsp = product_dict = "Mini Quiche"
+if product.lower() == "fish pie":
+    product_dsp = product_dict = "Fish Pie"
+if product.lower() == "yam balls":
+    product_dsp = product_dict = "Yam Balls"
 if product.lower() == "spring rolls":
-    product_dsp = product_dict = "Pack of Spring Rolls"
-if product.lower() == "sugar":
-    product_dsp = product_dict = "Sachette of Sugar"
-if product.lower() == "milk":
-    product_dsp = product_dict = "Bottle of Milk"
+    product_dsp = product_dict = "Spring Rolls"
+if product.lower() == "samosa":
+    product_dsp = product_dict = "Samosa (3pcs)"
+if product.lower() == "plain cake":
+    product_dsp = product_dict = "Plain Cake"
 
 quantity = int(input(f"What is the quantity of {product_dict} that {username} is buying? "))
 
@@ -114,7 +153,7 @@ while product.lower() != "end":
     unit_price_dsp = ("%.2f" % unit_price)
     pdf.setFont("Courier", 12)
     pdf.drawString(x_axis, y_axis, product_dsp)
-    pdf.drawString(x_axis+182, y_axis, str(unit_price_dsp))
+    pdf.drawString(x_axis+185, y_axis, str(unit_price_dsp))
     pdf.drawString(x_axis+329, y_axis, str(quantity))
     unit_total = unit_price * quantity
     unit_total_dsp = ("%.2f" % unit_total)
@@ -123,14 +162,50 @@ while product.lower() != "end":
 
     product = input(f"What next is {username} buying? ")
 
-    if product.lower() == "bread":
-        product_dsp = product_dict = "Pack of Bread"
+    if product.lower() == "baked flour chips":
+        product_dsp = product_dict = "Baked Flour Chips"
+    if product.lower() == "straw flour chips":
+        product_dsp = product_dict = "Straw Flour Chips"
+    if product.lower() == "atsomo":
+        product_dsp = product_dict = "Atsomo"
+    if product.lower() == "plantain chips":
+        product_dsp = product_dict = "Plantain Chips"
+    if product.lower() == "coated nuts":
+        product_dsp = product_dict = "Coated Nuts"
+    if product.lower() == "piped cookies":
+        product_dsp = product_dict = "Piped Cookies"
+    if product.lower() == "oat cookies":
+        product_dsp = product_dict = "Oat Cookies"
+    if product.lower() == "ring donut":
+        product_dsp = product_dict = "Ring Donut"
+    if product.lower() == "drop donut":
+        product_dsp = product_dict = "Drop Donut"
+    if product.lower() == "chicken pieces":
+        product_dsp = product_dict = "Chicken Pieces"
+    if product.lower() == "gizzard khebab":
+        product_dsp = product_dict = "Gizzard Khebab"
+    if product.lower() == "chicken khebab":
+        product_dsp = product_dict = "Chicken Khebab"
+    if product.lower() == "meat pie":
+        product_dsp = product_dict = "Meat Pie"
+    if product.lower() == "rock buns":
+        product_dsp = product_dict = "Rock Buns"
+    if product.lower() == "mini pizza":
+        product_dsp = product_dict = "Mini Pizza"
+    if product.lower() == "quiche slice":
+        product_dsp = product_dict = "Quiche Slice"
+    if product.lower() == "mini quiche":
+        product_dsp = product_dict = "Mini Quiche"
+    if product.lower() == "fish pie":
+        product_dsp = product_dict = "Fish Pie"
+    if product.lower() == "yam balls":
+        product_dsp = product_dict = "Yam Balls"
     if product.lower() == "spring rolls":
-        product_dsp = product_dict = "Pack of Spring Rolls"
-    if product.lower() == "sugar":
-        product_dsp = product_dict = "Sachette of Sugar"
-    if product.lower() == "milk":
-        product_dsp = product_dict = "Bottle of Milk"
+        product_dsp = product_dict = "Spring Rolls"
+    if product.lower() == "samosa":
+        product_dsp = product_dict = "Samosa (3pcs)"
+    if product.lower() == "plain cake":
+        product_dsp = product_dict = "Plain Cake"    
 
     total = total + unit_total
     count += 1
@@ -141,6 +216,8 @@ while product.lower() != "end":
 
 total_dsp = ("%.2f" % total)
 
+end_date = int(input(f"\n[+] How many days is {username} given to pay? "))
+
 if count <= 3:
     pdf.setFont("Courier", 11)
     pdf.line(60, 300+make_up_y, 557, 300+make_up_y)
@@ -149,11 +226,13 @@ if count <= 3:
     pdf.setFont("Courier-Bold", 13)
     pdf.drawString(63, 276+make_up_y, "TOTAL")
     if total < 100:
-        pdf.drawString(490, 276+make_up_y, f"Ghc{total_dsp}")
+        pdf.drawString(484, 276+make_up_y, f"Ghc {total_dsp}")
     if total >= 100 and total < 1000 :
-        pdf.drawString(483, 276+make_up_y, f"Ghc{total_dsp}")
-    if total >= 1000:
-        pdf.drawString(476, 276+make_up_y, f"Ghc{total_dsp}")
+        pdf.drawString(477, 276+make_up_y, f"Ghc {total_dsp}")
+    if total >= 1000 and total < 10000:
+        pdf.drawString(470, 276+make_up_y, f"Ghc {total_dsp}")
+    if total >= 10000:
+        pdf.drawString(463, 276+make_up_y, f"Ghc {total_dsp}")
 
     pdf.setFont("Courier-Bold", 13)
     pdf.drawString(60, 130+make_up_y, "ACCOUNT DETAILS")
@@ -161,7 +240,7 @@ if count <= 3:
     pdf.drawString(60, 105+make_up_y, "MTN MOBILE MONEY WALLET")
     pdf.drawString(60, 85+make_up_y, "Account Name: Stacey N Adjeley Adjei")
     pdf.drawString(60, 65+make_up_y, "Account Number: 0540563300")
-    pay_by = today + timedelta(days=7)
+    pay_by = today + timedelta(days=end_date)
     pdf.drawString(60, 45+make_up_y, f"Pay by: {pay_by.strftime("%d %B %Y")}")
 
     thanks = os.path.join(os.getcwd(), "pictures\\thanks.png")
@@ -175,11 +254,13 @@ if count > 3:
     pdf.setFont("Courier-Bold", 13)
     pdf.drawString(63, 276, "TOTAL")
     if total < 100:
-        pdf.drawString(490, 276, f"Ghc{total_dsp}")
+        pdf.drawString(484, 276, f"Ghc {total_dsp}")
     if total >= 100 and total < 1000 :
-        pdf.drawString(483, 276, f"Ghc{total_dsp}")
-    if total >= 1000:
-        pdf.drawString(476, 276, f"Ghc{total_dsp}")
+        pdf.drawString(477, 276, f"Ghc {total_dsp}")
+    if total >= 1000 and total < 10000:
+        pdf.drawString(470, 276, f"Ghc {total_dsp}")
+    if total >= 10000:
+        pdf.drawString(463, 276, f"Ghc {total_dsp}")
 
     pdf.setFont("Courier-Bold", 13)
     pdf.drawString(60, 130, "ACCOUNT DETAILS")
@@ -187,7 +268,7 @@ if count > 3:
     pdf.drawString(60, 105, "MTN MOBILE MONEY WALLET")
     pdf.drawString(60, 85, "Account Name: Stacey N Adjeley Adjei")
     pdf.drawString(60, 65, "Account Number: 0540563300")
-    pay_by = today + timedelta(days=7)
+    pay_by = today + timedelta(days=end_date)
     pdf.drawString(60, 45, f"Pay by: {pay_by.strftime("%d %B %Y")}")
 
     thanks = os.path.join(os.getcwd(), "pictures\\thanks.png")
