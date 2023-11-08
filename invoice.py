@@ -3,6 +3,8 @@ from reportlab.pdfgen import canvas
 import os
 from datetime import date, timedelta
 import requests, json
+from stat import S_IREAD, S_IRGRP, S_IROTH
+from stat import S_IWUSR
 
 def read_counter(directory):
     called = True
@@ -48,6 +50,8 @@ pdf.setLineWidth(0)
 # drawMyRuler(pdf)
 
 invoice_no_file = "counter\\counter.txt"
+os.chmod(invoice_no_file, S_IWUSR|S_IREAD)
+
 today = date.today()
 
 username = str(input("Who's invoice is being created? "))
@@ -73,8 +77,10 @@ if int(read_counter(invoice_no_file)) >= 10 and int(read_counter(invoice_no_file
     pdf.drawString(527, 610, invoice_no)
 if int(read_counter(invoice_no_file)) >= 100 and int(read_counter(invoice_no_file)) < 1000:
     pdf.drawString(520, 610, invoice_no)
-if int(read_counter(invoice_no_file)) >= 1000:
+if int(read_counter(invoice_no_file)) >= 1000 and int(read_counter(invoice_no_file)) < 10000:
     pdf.drawString(513, 610, invoice_no)
+if int(read_counter(invoice_no_file)) >= 10000:
+    pdf.drawString(506, 610, invoice_no)
 pdf.setFont("Courier", 11)
 date_format = today.strftime("%d.%b.%Y")
 pdf.drawString(483, 590, date_format)
@@ -321,4 +327,6 @@ else:
   exit()
 
 os.remove("test.pdf")
+
 increase_counter(invoice_no_file)
+os.chmod(invoice_no_file, S_IREAD|S_IRGRP|S_IROTH)
