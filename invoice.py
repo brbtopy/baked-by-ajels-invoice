@@ -95,12 +95,17 @@ pdf.drawString(390, 541, "QTY")
 pdf.drawString(510, 541, "TOTAL")
 
 #append purchase list to little invoice table
-product_prices = {"Chicken Pieces":10, "Gizzard Khebab":7, "Chicken Khebab":10, "Meat Pie":7, "Rock Buns":5, "Mini Pizza":8,
-                  "Quiche Slice":10, "Mini Quiche":8, "Fish Pie":10, "Yam Balls":2.5, "Spring Rolls":2.5, "Samosa (3pcs)":10,
+product_prices = {"Chicken Pieces":10, "Gizzard Khebab":7, "Chicken Khebab":10, "Meat Pie":7, "Rock Buns":5, "Mini Pizza":10,
+                  "Quiche Slice":10, "Mini Quiche":8, "Fish Pie":10, "Yam Balls":2.5, "Spring Rolls":2, "Samosa":2.5,
                   "Plain Cake":200, "Baked Flour Chips":150, "Straw Flour Chips":180, "Atsomo":150, "Plantain Chips":150,
-                  "Coated Nuts":150, "Piped Cookies":150, "Oat Cookies":180, "Ring Donut":180, "Drop Donut":180}
+                  "Coated Nuts":150, "Piped Cookies":150, "Oat Cookies":180, "Ring Donut":180, "Drop Donut":180, "1/2 Riped Plantain Chips":70,
+                  "1/2 Unriped Plantain Chips":70}
 
 product = input(f"What is {username} buying? ")
+if product.lower() == "half riped plantain chips":
+    product_dsp = product_dict = "1/2 Riped Plantain Chips"
+if product.lower() == "half unriped plantain chips":
+    product_dsp = product_dict = "1/2 Unriped Plantain Chips"
 if product.lower() == "baked flour chips":
     product_dsp = product_dict = "Baked Flour Chips"
 if product.lower() == "straw flour chips":
@@ -142,7 +147,7 @@ if product.lower() == "yam balls":
 if product.lower() == "spring rolls":
     product_dsp = product_dict = "Spring Rolls"
 if product.lower() == "samosa":
-    product_dsp = product_dict = "Samosa (3pcs)"
+    product_dsp = product_dict = "Samosa"
 if product.lower() == "plain cake":
     product_dsp = product_dict = "Plain Cake"
 
@@ -157,7 +162,7 @@ total = 0
 while product.lower() != "end":
     unit_price = product_prices[product_dict]
     unit_price_dsp = ("%.2f" % unit_price)
-    pdf.setFont("Courier", 12)
+    pdf.setFont("Courier", 11)
     pdf.drawString(x_axis, y_axis, product_dsp)
     pdf.drawString(x_axis+185, y_axis, str(unit_price_dsp))
     pdf.drawString(x_axis+329, y_axis, str(quantity))
@@ -167,7 +172,11 @@ while product.lower() != "end":
     y_axis = y_axis - 30
 
     product = input(f"What next is {username} buying? ")
-
+    
+    if product.lower() == "half riped plantain chips":
+        product_dsp = product_dict = "1/2 Riped Plantain Chips"
+    if product.lower() == "half unriped plantain chips":
+        product_dsp = product_dict = "1/2 Unriped Plantain Chips"
     if product.lower() == "baked flour chips":
         product_dsp = product_dict = "Baked Flour Chips"
     if product.lower() == "straw flour chips":
@@ -209,7 +218,7 @@ while product.lower() != "end":
     if product.lower() == "spring rolls":
         product_dsp = product_dict = "Spring Rolls"
     if product.lower() == "samosa":
-        product_dsp = product_dict = "Samosa (3pcs)"
+        product_dsp = product_dict = "Samosa"
     if product.lower() == "plain cake":
         product_dsp = product_dict = "Plain Cake"    
 
