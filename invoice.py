@@ -96,8 +96,9 @@ pdf.drawString(510, 541, "TOTAL")
 
 #append purchase list to little invoice table
 product_prices = {"Chicken Pieces":10, "Gizzard Khebab":7, "Chicken Khebab":10, "Meat Pie":7, "Rock Buns":5, "Mini Pizza":10,
-                  "Quiche Slice":10, "Mini Quiche":8, "Fish Pie":10, "Yam Balls":2.5, "Spring Rolls":2.5, "Samosa":3,
-                  "Plain Cake":200, "Baked Flour Chips":150, "Straw Flour Chips":180, "Atsomo":150, "Plantain Chips":150, "Chips":75,
+                  "Quiche Slice":10, "Mini Quiche":8, "Fish Pie":10, "Yam Balls":2.5, "Spring Rolls":2, "Samosa":2.5,
+                  "Plain Cake":200, "Baked Flour Chips":150, "Straw Flour Chips":180, "Atsomo":150, "Plantain Chips (Yellow)":100,
+                  "Plantain Chips (Brown)":100,"Chips":75,
                   "Coated Nuts":150, "Piped Cookies":150, "Oat Cookies":180, "Ring Donut":180, "Drop Donut":180, "1/2 Riped Plantain Chips":70,
                   "1/2 Unriped Plantain Chips":70}
 
@@ -114,8 +115,10 @@ if product.lower() == "straw flour chips":
     product_dsp = product_dict = "Straw Flour Chips"
 if product.lower() == "atsomo":
     product_dsp = product_dict = "Atsomo"
-if product.lower() == "plantain chips":
-    product_dsp = product_dict = "Plantain Chips"
+if product.lower() == "chips yellow":
+    product_dsp = product_dict = "Plantain Chips (Yellow)"
+if product.lower() == "chips brown":
+    product_dsp = product_dict = "Plantain Chips (Brown)"
 if product.lower() == "coated nuts":
     product_dsp = product_dict = "Coated Nuts"
 if product.lower() == "piped cookies":
@@ -186,8 +189,10 @@ while product.lower() != "end":
         product_dsp = product_dict = "Straw Flour Chips"
     if product.lower() == "atsomo":
         product_dsp = product_dict = "Atsomo"
-    if product.lower() == "plantain chips":
-        product_dsp = product_dict = "Plantain Chips"
+    if product.lower() == "chips yellow":
+        product_dsp = product_dict = "Plantain Chips (Yellow)"
+    if product.lower() == "chips brown":
+        product_dsp = product_dict = "Plantain Chips (Brown)"
     if product.lower() == "coated nuts":
         product_dsp = product_dict = "Coated Nuts"
     if product.lower() == "piped cookies":
