@@ -98,11 +98,13 @@ pdf.drawString(510, 541, "TOTAL")
 product_prices = {"Chicken Pieces":10, "Gizzard Khebab":7, "Chicken Khebab":10, "Meat Pie":7, "Rock Buns":5, "Mini Pizza":10,
                   "Quiche Slice":10, "Mini Quiche":8, "Fish Pie":10, "Yam Balls":2.5, "Spring Rolls":2, "Samosa":2.5,
                   "Plain Cake":200, "Baked Flour Chips":150, "Straw Flour Chips":180, "Atsomo":150, "Plantain Chips (Yellow)":100,
-                  "Plantain Chips (Brown)":100,"Chips":75,
+                  "Plantain Chips (Brown)":100,"Chips":65,"Butter Cookies":120,
                   "Coated Nuts":150, "Piped Cookies":150, "Oat Cookies":180, "Ring Donut":180, "Drop Donut":180, "1/2 Riped Plantain Chips":70,
                   "1/2 Unriped Plantain Chips":70}
 
 product = input(f"What is {username} buying? ")
+if product.lower() == "butter cookies":
+    product_dsp = product_dict = "Butter Cookies"
 if product.lower() == "chips":
     product_dsp = product_dict = "Chips"
 if product.lower() == "half riped plantain chips":
@@ -177,6 +179,8 @@ while product.lower() != "end":
     y_axis = y_axis - 30
 
     product = input(f"What next is {username} buying? ")
+    if product.lower() == "butter cookies":
+        product_dsp = product_dict = "Butter Cookies"
     if product.lower() == "chips":
         product_dsp = product_dict = "Chips"
     if product.lower() == "half riped plantain chips":
