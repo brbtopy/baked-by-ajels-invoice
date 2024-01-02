@@ -1,6 +1,7 @@
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 import os
+from decimal import Decimal
 from datetime import date, timedelta
 import requests, json
 from stat import S_IREAD, S_IRGRP, S_IROTH
@@ -95,70 +96,10 @@ pdf.drawString(390, 541, "QTY")
 pdf.drawString(510, 541, "TOTAL")
 
 #append purchase list to little invoice table
-product_prices = {"Chicken Pieces":10, "Gizzard Khebab":7, "Chicken Khebab":10, "Meat Pie":7, "Rock Buns":5, "Mini Pizza":10,
-                  "Quiche Slice":10, "Mini Quiche":8, "Fish Pie":10, "Yam Balls":2.5, "Spring Rolls":2, "Samosa":2.5,
-                  "Plain Cake":200, "Baked Flour Chips":150, "Straw Flour Chips":180, "Atsomo":150, "Plantain Chips (Yellow)":100,
-                  "Plantain Chips (Brown)":100,"Chips":65,"Butter Cookies":120,
-                  "Coated Nuts":150, "Piped Cookies":150, "Oat Cookies":180, "Ring Donut":180, "Drop Donut":180, "1/2 Riped Plantain Chips":70,
-                  "1/2 Unriped Plantain Chips":70}
-
 product = input(f"What is {username} buying? ")
-if product.lower() == "butter cookies":
-    product_dsp = product_dict = "Butter Cookies"
-if product.lower() == "chips":
-    product_dsp = product_dict = "Chips"
-if product.lower() == "half riped plantain chips":
-    product_dsp = product_dict = "1/2 Riped Plantain Chips"
-if product.lower() == "half unriped plantain chips":
-    product_dsp = product_dict = "1/2 Unriped Plantain Chips"
-if product.lower() == "baked flour chips":
-    product_dsp = product_dict = "Baked Flour Chips"
-if product.lower() == "straw flour chips":
-    product_dsp = product_dict = "Straw Flour Chips"
-if product.lower() == "atsomo":
-    product_dsp = product_dict = "Atsomo"
-if product.lower() == "chips yellow":
-    product_dsp = product_dict = "Plantain Chips (Yellow)"
-if product.lower() == "chips brown":
-    product_dsp = product_dict = "Plantain Chips (Brown)"
-if product.lower() == "coated nuts":
-    product_dsp = product_dict = "Coated Nuts"
-if product.lower() == "piped cookies":
-    product_dsp = product_dict = "Piped Cookies"
-if product.lower() == "oat cookies":
-    product_dsp = product_dict = "Oat Cookies"
-if product.lower() == "ring donut":
-    product_dsp = product_dict = "Ring Donut"
-if product.lower() == "drop donut":
-    product_dsp = product_dict = "Drop Donut"
-if product.lower() == "chicken pieces":
-    product_dsp = product_dict = "Chicken Pieces"
-if product.lower() == "gizzard khebab":
-    product_dsp = product_dict = "Gizzard Khebab"
-if product.lower() == "chicken khebab":
-    product_dsp = product_dict = "Chicken Khebab"
-if product.lower() == "meat pie":
-    product_dsp = product_dict = "Meat Pie"
-if product.lower() == "rock buns":
-    product_dsp = product_dict = "Rock Buns"
-if product.lower() == "mini pizza":
-    product_dsp = product_dict = "Mini Pizza"
-if product.lower() == "quiche slice":
-    product_dsp = product_dict = "Quiche Slice"
-if product.lower() == "mini quiche":
-    product_dsp = product_dict = "Mini Quiche"
-if product.lower() == "fish pie":
-    product_dsp = product_dict = "Fish Pie"
-if product.lower() == "yam balls":
-    product_dsp = product_dict = "Yam Balls"
-if product.lower() == "spring rolls":
-    product_dsp = product_dict = "Spring Rolls"
-if product.lower() == "samosa":
-    product_dsp = product_dict = "Samosa"
-if product.lower() == "plain cake":
-    product_dsp = product_dict = "Plain Cake"
-
-quantity = int(input(f"What is the quantity of {product_dict} that {username} is buying? "))
+product = product.title()
+unit_price = Decimal(input(f"What is the unit price of {product} that {username} is buying? "))
+quantity = int(input(f"What is the quantity of {product} that {username} is buying? "))
 
 x_axis = 67
 y_axis = 500
@@ -167,10 +108,9 @@ make_up_y = 70
 count = 0
 total = 0
 while product.lower() != "end":
-    unit_price = product_prices[product_dict]
     unit_price_dsp = ("%.2f" % unit_price)
     pdf.setFont("Courier", 11)
-    pdf.drawString(x_axis, y_axis, product_dsp)
+    pdf.drawString(x_axis, y_axis, product.title())
     pdf.drawString(x_axis+185, y_axis, str(unit_price_dsp))
     pdf.drawString(x_axis+329, y_axis, str(quantity))
     unit_total = unit_price * quantity
@@ -179,67 +119,15 @@ while product.lower() != "end":
     y_axis = y_axis - 30
 
     product = input(f"What next is {username} buying? ")
-    if product.lower() == "butter cookies":
-        product_dsp = product_dict = "Butter Cookies"
-    if product.lower() == "chips":
-        product_dsp = product_dict = "Chips"
-    if product.lower() == "half riped plantain chips":
-        product_dsp = product_dict = "1/2 Riped Plantain Chips"
-    if product.lower() == "half unriped plantain chips":
-        product_dsp = product_dict = "1/2 Unriped Plantain Chips"
-    if product.lower() == "baked flour chips":
-        product_dsp = product_dict = "Baked Flour Chips"
-    if product.lower() == "straw flour chips":
-        product_dsp = product_dict = "Straw Flour Chips"
-    if product.lower() == "atsomo":
-        product_dsp = product_dict = "Atsomo"
-    if product.lower() == "chips yellow":
-        product_dsp = product_dict = "Plantain Chips (Yellow)"
-    if product.lower() == "chips brown":
-        product_dsp = product_dict = "Plantain Chips (Brown)"
-    if product.lower() == "coated nuts":
-        product_dsp = product_dict = "Coated Nuts"
-    if product.lower() == "piped cookies":
-        product_dsp = product_dict = "Piped Cookies"
-    if product.lower() == "oat cookies":
-        product_dsp = product_dict = "Oat Cookies"
-    if product.lower() == "ring donut":
-        product_dsp = product_dict = "Ring Donut"
-    if product.lower() == "drop donut":
-        product_dsp = product_dict = "Drop Donut"
-    if product.lower() == "chicken pieces":
-        product_dsp = product_dict = "Chicken Pieces"
-    if product.lower() == "gizzard khebab":
-        product_dsp = product_dict = "Gizzard Khebab"
-    if product.lower() == "chicken khebab":
-        product_dsp = product_dict = "Chicken Khebab"
-    if product.lower() == "meat pie":
-        product_dsp = product_dict = "Meat Pie"
-    if product.lower() == "rock buns":
-        product_dsp = product_dict = "Rock Buns"
-    if product.lower() == "mini pizza":
-        product_dsp = product_dict = "Mini Pizza"
-    if product.lower() == "quiche slice":
-        product_dsp = product_dict = "Quiche Slice"
-    if product.lower() == "mini quiche":
-        product_dsp = product_dict = "Mini Quiche"
-    if product.lower() == "fish pie":
-        product_dsp = product_dict = "Fish Pie"
-    if product.lower() == "yam balls":
-        product_dsp = product_dict = "Yam Balls"
-    if product.lower() == "spring rolls":
-        product_dsp = product_dict = "Spring Rolls"
-    if product.lower() == "samosa":
-        product_dsp = product_dict = "Samosa"
-    if product.lower() == "plain cake":
-        product_dsp = product_dict = "Plain Cake"    
+    product = product.title()
 
     total = total + unit_total
     count += 1
 
     if product.lower() == "end":
         break
-    quantity = int(input(f"What is the quantity of {product_dict} that {username} is buying? "))
+    unit_price = Decimal(input(f"What is the unit price of {product} that {username} is buying? "))
+    quantity = int(input(f"What is the quantity of {product} that {username} is buying? "))
 
 total_dsp = ("%.2f" % total)
 
