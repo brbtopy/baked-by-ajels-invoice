@@ -116,7 +116,7 @@ while product.lower() != "end":
     unit_total = unit_price * quantity
     unit_total_dsp = ("%.2f" % unit_total)
     pdf.drawString(x_axis+437, y_axis, str(unit_total_dsp))
-    y_axis = y_axis - 30
+    y_axis = y_axis - 25
 
     product = input(f"What next is {username} buying? ")
     product = product.title()
@@ -131,7 +131,7 @@ while product.lower() != "end":
 
 total_dsp = ("%.2f" % total)
 
-end_date = int(input(f"\n[+] How many days is {username} given to pay? "))
+# end_date = int(input(f"\n[+] How many days is {username} given to pay? "))
 
 if count <= 3:
     pdf.setFont("Courier", 11)
@@ -155,8 +155,8 @@ if count <= 3:
     pdf.drawString(60, 105+make_up_y, "MTN MOBILE MONEY WALLET")
     pdf.drawString(60, 85+make_up_y, "Account Name: Stacey N Adjeley Adjei")
     pdf.drawString(60, 65+make_up_y, "Account Number: 0540563300")
-    pay_by = today + timedelta(days=end_date)
-    pdf.drawString(60, 45+make_up_y, f"Pay by: {pay_by.strftime("%d %B %Y")}")
+    # pay_by = today + timedelta(days=end_date)
+    # pdf.drawString(60, 45+make_up_y, f"Pay by: {pay_by.strftime("%d %B %Y")}")
 
     thanks = os.path.join(os.getcwd(), "pictures\\thanks.png")
     pdf.drawImage(thanks, 440, 50+make_up_y, width=130, height=130)
@@ -183,8 +183,8 @@ if count > 3:
     pdf.drawString(60, 105, "MTN MOBILE MONEY WALLET")
     pdf.drawString(60, 85, "Account Name: Stacey N Adjeley Adjei")
     pdf.drawString(60, 65, "Account Number: 0540563300")
-    pay_by = today + timedelta(days=end_date)
-    pdf.drawString(60, 45, f"Pay by: {pay_by.strftime("%d %B %Y")}")
+    # pay_by = today + timedelta(days=end_date)
+    # pdf.drawString(60, 45, f"Pay by: {pay_by.strftime("%d %B %Y")}")
 
     thanks = os.path.join(os.getcwd(), "pictures\\thanks.png")
     pdf.drawImage(thanks, 440, 50, width=130, height=130)
