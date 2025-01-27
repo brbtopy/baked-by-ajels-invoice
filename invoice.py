@@ -6,6 +6,10 @@ from datetime import date, timedelta
 import requests, json
 from stat import S_IREAD, S_IRGRP, S_IROTH
 from stat import S_IWUSR
+from PIL import Image, ImageEnhance
+import fitz  # PyMuPDF
+import io
+
 
 def read_counter(directory):
     called = True
@@ -46,14 +50,18 @@ def drawMyRuler(pdf):
     pdf.drawString(10,700, 'y700')
     pdf.drawString(10,800, 'y800')
 
-pdf = canvas.Canvas("test.pdf", pagesize=letter)
+pdf = canvas.Canvas("C:\\Users\\samas\\OneDrive\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\test.pdf", pagesize=letter)
 pdf.setLineWidth(0)
 # drawMyRuler(pdf)
 
-invoice_no_file = "counter\\counter.txt"
+invoice_no_file = "C:\\Users\\samas\\OneDrive\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\counter\\counter.txt"
 os.chmod(invoice_no_file, S_IWUSR|S_IREAD)
 
 today = date.today()
+
+print("\n[+] Welcome to AJELS Invoice Generator")
+print("[+] Please provide the following details to generate an invoice\n")
+print("[+] Note: To end the purchase list, type 'end' when asked for the product name\n")
 
 username = str(input("Who's invoice is being created? "))
 username = username.title()
@@ -61,7 +69,7 @@ user_phone = str(input(f"What is the contact address for {username}? "))
 
 invoice_no = "#0" + str(read_counter(invoice_no_file))
 
-logo = os.path.join(os.getcwd(), "pictures\\logo.jpg")
+logo = os.path.join(os.getcwd(), "C:\\Users\\samas\\OneDrive\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\pictures\\logo.png")
 pdf.drawImage(logo, 60, 680, width=70, height=73)
 
 pdf.setFont("Courier-Bold", 12)
@@ -158,7 +166,7 @@ if count <= 3:
     # pay_by = today + timedelta(days=end_date)
     # pdf.drawString(60, 45+make_up_y, f"Pay by: {pay_by.strftime("%d %B %Y")}")
 
-    thanks = os.path.join(os.getcwd(), "pictures\\thanks.png")
+    thanks = os.path.join(os.getcwd(), "C:\\Users\\samas\\OneDrive\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\pictures\\thanks.png")
     pdf.drawImage(thanks, 440, 50+make_up_y, width=130, height=130)
 
 if count > 3:
@@ -186,56 +194,64 @@ if count > 3:
     # pay_by = today + timedelta(days=end_date)
     # pdf.drawString(60, 45, f"Pay by: {pay_by.strftime("%d %B %Y")}")
 
-    thanks = os.path.join(os.getcwd(), "pictures\\thanks.png")
+    thanks = os.path.join(os.getcwd(), "C:\\Users\\samas\\OneDrive\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\pictures\\thanks.png")
     pdf.drawImage(thanks, 440, 50, width=130, height=130)
 
 pdf.save()
 
 #################################################################################
 #adding watermark to receipt
-instructions = {
-  'parts': [
-    {
-      'file': 'document'
-    }
-  ],
-  'actions': [
-    {
-      'type': 'watermark',
-      'image': 'logo',
-      'width': '75%',
-      "opacity": 0.1
-    }
-  ]
-}
+# Function to compress images
+def compress_image(image, quality=50):
+    buffer = io.BytesIO()
+    image.convert("RGB").save(buffer, format="JPEG", quality=quality)
+    buffer.seek(0)
+    return Image.open(buffer)
 
-output_file = f"invoice_docs\\{username}'s invoice_{invoice_no}.pdf"
+document_path = 'C:\\Users\\samas\\OneDrive\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\test.pdf'
+watermark_path = 'C:\\Users\\samas\\OneDrive\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\pictures\\logo.png'
+opacity = 0.08
 
-response = requests.request(
-  'POST',
-  'https://api.pspdfkit.com/build',
-  headers = {
-    'Authorization': 'Bearer pdf_live_8vTpklf6KnF6ZiK5DqZrbfDJrIcDSTkSJpIlP0beDH7'
-  },
-  files = {
-    'document': open('test.pdf', 'rb'),
-    'logo': open('pictures\\logo3.jpg', 'rb')
-  },
-  data = {
-    'instructions': json.dumps(instructions)
-  },
-  stream = True
-)
+# Open the original document
+pdf_document = fitz.open(document_path)
+page = pdf_document.load_page(0)  # Load the first page
 
-if response.ok:
-  with open(output_file, 'wb') as fd:
-    for chunk in response.iter_content(chunk_size=8096):
-      fd.write(chunk)
-else:
-  print(response.text)
-  exit()
+# Load the watermark image
+watermark = Image.open(watermark_path).convert("RGBA")
 
-os.remove("test.pdf")
+# Resize the watermark to a larger size
+document_width, document_height = page.rect.width, page.rect.height
+watermark_width = int(document_width * 0.75)  # Increase the width to 75% of the document width
+watermark_height = int(watermark.size[1] * (watermark_width / watermark.size[0]))
+watermark = watermark.resize((watermark_width, watermark_height), Image.LANCZOS)
+
+# Adjust the opacity of the watermark
+alpha = watermark.split()[3]
+alpha = ImageEnhance.Brightness(alpha).enhance(opacity)
+watermark.putalpha(alpha)
+
+# Convert the watermark to a pixmap
+watermark_bytes = io.BytesIO()
+watermark.save(watermark_bytes, format='PNG')
+watermark_pix = fitz.Pixmap(watermark_bytes.getvalue())
+
+# Calculate the position to center the watermark
+x = (document_width - watermark_width) // 2
+y = (document_height - watermark_height) // 2
+
+# Apply the watermark to the page
+page.insert_image(fitz.Rect(x, y, x + watermark_width, y + watermark_height), pixmap=watermark_pix, overlay=True)
+
+# Save the result with compression
+output_file = f"C:\\Users\\samas\\OneDrive\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\invoice_docs\\{username}'s invoice_{invoice_no}.pdf"
+pdf_document.save(output_file, garbage=4, deflate=True, clean=True)
+pdf_document.close()
+
+os.remove("C:\\Users\\samas\\OneDrive\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\test.pdf")
 
 increase_counter(invoice_no_file)
 os.chmod(invoice_no_file, S_IREAD|S_IRGRP|S_IROTH)
+
+print(f"\n[+] Invoice for {username} has been generated successfully!")
+print(f"[+] Invoice saved as {username}'s invoice_{invoice_no}.pdf in the invoice_docs folder")
+print("[+] Thank you for using AJELS Invoice Generator")
