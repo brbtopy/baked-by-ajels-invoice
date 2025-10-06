@@ -50,11 +50,11 @@ def drawMyRuler(pdf):
     pdf.drawString(10,700, 'y700')
     pdf.drawString(10,800, 'y800')
 
-pdf = canvas.Canvas("C:\\Users\\samas\\OneDrive\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\test.pdf", pagesize=letter)
+pdf = canvas.Canvas("C:\\Users\\SAMUEL\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\test.pdf", pagesize=letter)
 pdf.setLineWidth(0)
 # drawMyRuler(pdf)
 
-invoice_no_file = "C:\\Users\\samas\\OneDrive\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\counter\\counter.txt"
+invoice_no_file = "C:\\Users\\SAMUEL\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\counter\\counter.txt"
 os.chmod(invoice_no_file, S_IWUSR|S_IREAD)
 
 today = date.today()
@@ -69,7 +69,7 @@ user_phone = str(input(f"What is the contact address for {username}? "))
 
 invoice_no = "#0" + str(read_counter(invoice_no_file))
 
-logo = os.path.join(os.getcwd(), "C:\\Users\\samas\\OneDrive\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\pictures\\logo.png")
+logo = os.path.join(os.getcwd(), "C:\\Users\\SAMUEL\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\pictures\\logo.jpg")
 pdf.drawImage(logo, 60, 680, width=70, height=73)
 
 pdf.setFont("Courier-Bold", 12)
@@ -166,7 +166,7 @@ if count <= 3:
     # pay_by = today + timedelta(days=end_date)
     # pdf.drawString(60, 45+make_up_y, f"Pay by: {pay_by.strftime("%d %B %Y")}")
 
-    thanks = os.path.join(os.getcwd(), "C:\\Users\\samas\\OneDrive\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\pictures\\thanks.png")
+    thanks = os.path.join(os.getcwd(), "C:\\Users\\SAMUEL\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\pictures\\thanks.png")
     pdf.drawImage(thanks, 440, 50+make_up_y, width=130, height=130)
 
 if count > 3:
@@ -194,7 +194,7 @@ if count > 3:
     # pay_by = today + timedelta(days=end_date)
     # pdf.drawString(60, 45, f"Pay by: {pay_by.strftime("%d %B %Y")}")
 
-    thanks = os.path.join(os.getcwd(), "C:\\Users\\samas\\OneDrive\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\pictures\\thanks.png")
+    thanks = os.path.join(os.getcwd(), "C:\\Users\\SAMUEL\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\pictures\\thanks.png")
     pdf.drawImage(thanks, 440, 50, width=130, height=130)
 
 pdf.save()
@@ -208,8 +208,8 @@ def compress_image(image, quality=50):
     buffer.seek(0)
     return Image.open(buffer)
 
-document_path = 'C:\\Users\\samas\\OneDrive\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\test.pdf'
-watermark_path = 'C:\\Users\\samas\\OneDrive\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\pictures\\logo.png'
+document_path = 'C:\\Users\\SAMUEL\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\test.pdf'
+watermark_path = 'C:\\Users\\SAMUEL\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\pictures\\logo.jpg'
 opacity = 0.08
 
 # Open the original document
@@ -243,11 +243,11 @@ y = (document_height - watermark_height) // 2
 page.insert_image(fitz.Rect(x, y, x + watermark_width, y + watermark_height), pixmap=watermark_pix, overlay=True)
 
 # Save the result with compression
-output_file = f"C:\\Users\\samas\\OneDrive\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\invoice_docs\\{username}'s invoice_{invoice_no}.pdf"
+output_file = f"C:\\Users\\SAMUEL\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\invoice_docs\\{username}'s invoice_{invoice_no}.pdf"
 pdf_document.save(output_file, garbage=4, deflate=True, clean=True)
 pdf_document.close()
 
-os.remove("C:\\Users\\samas\\OneDrive\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\test.pdf")
+os.remove("C:\\Users\\SAMUEL\\Desktop\\proj\\ajels\\baked-by-ajels-invoice\\test.pdf")
 
 increase_counter(invoice_no_file)
 os.chmod(invoice_no_file, S_IREAD|S_IRGRP|S_IROTH)
